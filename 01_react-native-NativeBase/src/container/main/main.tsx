@@ -11,23 +11,35 @@ interface IState {
 
 export default class MainContainer extends Component<null, IState> {
 
+    public state: IState = {
+            isOpen: false,
+            selectedItem: 'About'
+        }
+
+    menu = <SideNavContainer onItemSelected={this.onMenuItemSelected.bind(this)} selectedItem={this.state.selectedItem} isOpen={this.state.isOpen}>
+    </SideNavContainer>
+
     constructor() {
         super();
-
+        console.log('constructor 1')
         this.state = {
             isOpen: false,
             selectedItem: 'About'
         }
     }
 
-    menu = <SideNavContainer onItemSelected={this.onMenuItemSelected} selectedItem="{this.state.selectedItem}" isOpen="{this.state.isOpen}">
-    </SideNavContainer>
 
     onMenuItemSelected(item: string) {
-        this.setState({
-            isOpen: false,
-            selectedItem: item,
-        });
+        console.log('itenm: ', item)
+        // this.setState({
+        //     isOpen: false,
+        //     selectedItem: item,
+        // });
+        this.setState(Object.assign({}, this.state, { isOpen: false, selectedItem: item  }));
+        setTimeout(() => {
+            console.log(this.state);
+        }, 500)
+        
     }
 
     toggle() {
@@ -50,7 +62,7 @@ export default class MainContainer extends Component<null, IState> {
                         <Title>Header</Title>
                     </Header>
                     <Content>
-                            <Text> Hello World with Side Nav </Text>
+                        <Text> Hello World with Side Nav {this.state.selectedItem} </Text>
                     </Content>
                     <Footer>
                         <FooterTab>
@@ -67,10 +79,10 @@ export default class MainContainer extends Component<null, IState> {
 
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  } as React.ViewStyle
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#F5FCFF',
+    } as React.ViewStyle
 });

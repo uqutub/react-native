@@ -13,18 +13,15 @@ const window = Dimensions.get('window');
 interface IProps {
     onItemSelected: any;
     selectedItem: string;
-    isOpen: string;
+    isOpen: boolean;
 }
 
 
-export default class SideNavContainer extends Component<IProps, null> {
+export default class SideNavContainer extends Component<IProps, any> {
     uri = 'https://pickaface.net/gallery/avatar/Opi51c74d0125fd4.png';
 
-    constructor() {
-        super();
-
-        console.log(this.props, 'this.props')
-        
+    constructor(props: IProps) {
+        super(props);
     }
 
     render() {
@@ -32,12 +29,12 @@ export default class SideNavContainer extends Component<IProps, null> {
             <ScrollView scrollsToTop={false} style={styles.menu}>
 
                 <View style={styles.avatarContainer}>
-                    <Text style={styles.name}>Your name</Text>
+                    <Text style={styles.name}>Your name {this.props.selectedItem}</Text>
                 </View>
 
-                <Text>
+                {/*<Text>
                     Selected Item: {this.props.selectedItem}- {this.props.isOpen}
-                </Text>
+                </Text>*/}
 
                 <Text
                     onPress={() => this.props.onItemSelected('About')}
@@ -68,7 +65,7 @@ const styles = StyleSheet.create({
     } as React.ViewStyle,
     avatarContainer: {
         marginBottom: 20,
-        marginTop: 20,
+        marginTop: 50,
     } as React.ViewStyle,
     avatar: {
         width: 48,
